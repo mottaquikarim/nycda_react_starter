@@ -9548,22 +9548,129 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Main = function (_Component) {
-	_inherits(Main, _Component);
+var Grid = function (_Component) {
+	_inherits(Grid, _Component);
 
-	function Main() {
-		_classCallCheck(this, Main);
+	function Grid() {
+		_classCallCheck(this, Grid);
 
-		return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+		return _possibleConstructorReturn(this, (Grid.__proto__ || Object.getPrototypeOf(Grid)).apply(this, arguments));
 	}
 
-	_createClass(Main, [{
+	_createClass(Grid, [{
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
-				'h1',
+				'div',
+				{ className: 'ui two column centered grid' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'four column centered row' },
+					this.props.children.map(function (child, i) {
+						return _react2.default.createElement(
+							'div',
+							{ key: i, className: 'column' },
+							child
+						);
+					})
+				)
+			);
+		}
+	}]);
+
+	return Grid;
+}(_react.Component);
+
+var NUM_OPTIONS = 5;
+var array = Array.from(Array(NUM_OPTIONS).keys());
+var Store = {
+	array: array,
+	currentSelectedItem: 1
+};
+
+var actions = {
+	'UPDATE_VAL': function UPDATE_VAL(oldStore, options) {
+		return Object.assign({}, oldStore, options);
+	}
+};
+
+var Main = function (_Component2) {
+	_inherits(Main, _Component2);
+
+	function Main() {
+		var _ref;
+
+		var _temp, _this2, _ret;
+
+		_classCallCheck(this, Main);
+
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
+
+		return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_ref = Main.__proto__ || Object.getPrototypeOf(Main)).call.apply(_ref, [this].concat(args))), _this2), _this2.state = Store, _temp), _possibleConstructorReturn(_this2, _ret);
+	}
+
+	_createClass(Main, [{
+		key: 'dispatch',
+
+		// constructor(props) {
+		// 	super(props);
+
+		// 	this.state = Store;
+		// }
+		value: function dispatch(actionName, options) {
+			var actionToDo = actions[actionName];
+			var newStore = actionToDo(this.state, options);
+			this.setState(newStore);
+		}
+	}, {
+		key: 'updateCurrentSelectedItem',
+		value: function updateCurrentSelectedItem(e) {
+			this.dispatch('UPDATE_VAL', {
+				currentSelectedItem: parseInt(e.target.value, 10)
+			});
+			// const currentSelectedItem = parseInt(e.target.value, 10);
+			// this.setState({
+			// 	currentSelectedItem,
+			// });
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var currentSelectedItem = this.state.currentSelectedItem;
+
+			return _react2.default.createElement(
+				Grid,
 				null,
-				'Hello, Wrold!'
+				this.renderDropdown(),
+				_react2.default.createElement(
+					'span',
+					null,
+					currentSelectedItem
+				)
+			);
+		}
+	}, {
+		key: 'renderDropdown',
+		value: function renderDropdown() {
+			var _this3 = this;
+
+			var array = this.state.array;
+
+
+			return _react2.default.createElement(
+				'select',
+				{ onChange: function onChange(e) {
+						return _this3.updateCurrentSelectedItem(e);
+					} },
+				array.map(function (current) {
+					return _react2.default.createElement(
+						'option',
+						{ key: current, value: current + 1 },
+						current + 1
+					);
+				})
 			);
 		}
 	}]);
