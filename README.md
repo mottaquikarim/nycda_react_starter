@@ -1,4 +1,4 @@
-# todolist_flux
+# React Starter
 
 How to clone:
 
