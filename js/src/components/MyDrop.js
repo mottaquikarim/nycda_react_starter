@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 export default class MyDrop extends Component {
 	updateCurrentSelectedItem(e) {
-		this.props.dispatch('UPDATE_VAL', {
-			currentSelectedItem: parseInt(e.target.value, 10),
+		this.props.dispatch('UPDATE_DROP', {
+			[this.props.keyName]: e.target.value,
 		});
 		
 	}
@@ -11,7 +11,7 @@ export default class MyDrop extends Component {
 		const {array} = this.props;
 
 		return <select onChange={(e) => this.updateCurrentSelectedItem(e)}>
-			{array.map(current => <option key={current} value={current+1}>{current+1}</option>)}
+			{array.map(current => <option key={current} value={current}>{current}</option>)}
 		</select>
 	}
 }

@@ -14,6 +14,13 @@ const __makeGetReq = (oldStore, currentSelectedItem, currentType) => {
 	});	
 }
 
+export function updateDrop(oldStore, options) {
+	const currentType = options.currentType ? options.currentType : oldStore.currentType;
+	const currentSelectedItem = options.currentSelectedItem ? options.currentSelectedItem: oldStore.currentSelectedItem;
+	
+	return __makeGetReq(oldStore, currentSelectedItem, currentType);
+}
+
 export function updateType(oldStore, options) {
 	const {currentType} = options;
 	const {currentSelectedItem} = oldStore;

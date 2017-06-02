@@ -9616,9 +9616,9 @@ var Main = function (_Component) {
 				_react2.default.createElement(
 					'div',
 					null,
-					_react2.default.createElement(_MyDrop2.default, _extends({ array: this.state.array }, sharedProps)),
+					_react2.default.createElement(_MyDrop2.default, _extends({ array: this.state.array, keyName: 'currentSelectedItem' }, sharedProps)),
 					_react2.default.createElement('br', null),
-					_react2.default.createElement(_TypeDrop2.default, _extends({ types: this.state.searchTypes }, sharedProps))
+					_react2.default.createElement(_MyDrop2.default, _extends({ array: this.state.searchTypes, keyName: 'currentType' }, sharedProps))
 				),
 				_react2.default.createElement(_Label2.default, _extends({ content: labelToShow }, sharedProps))
 			);
@@ -9651,7 +9651,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 var NUM_OPTIONS = 5;
-var array = Array.from(Array(NUM_OPTIONS).keys());
+var array = Array.from(Array(NUM_OPTIONS).keys()).map(function (current) {
+	return current + 1;
+});
 
 var searchTypes = ['trivia', 'math', 'date', 'year'];
 var Store = exports.Store = {
@@ -9684,6 +9686,9 @@ var actions = exports.actions = {
 	},
 	'UPDATE_TYPE': function UPDATE_TYPE(oldStore, options) {
 		return (0, _reducers.updateType)(oldStore, options);
+	},
+	'UPDATE_DROP': function UPDATE_DROP(oldStore, options) {
+		return (0, _reducers.updateDrop)(oldStore, options);
 	}
 };
 
@@ -9818,6 +9823,8 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -9836,9 +9843,7 @@ var MyDrop = function (_Component) {
 	_createClass(MyDrop, [{
 		key: 'updateCurrentSelectedItem',
 		value: function updateCurrentSelectedItem(e) {
-			this.props.dispatch('UPDATE_VAL', {
-				currentSelectedItem: parseInt(e.target.value, 10)
-			});
+			this.props.dispatch('UPDATE_DROP', _defineProperty({}, this.props.keyName, e.target.value));
 		}
 	}, {
 		key: 'render',
@@ -9856,8 +9861,8 @@ var MyDrop = function (_Component) {
 				array.map(function (current) {
 					return _react2.default.createElement(
 						'option',
-						{ key: current, value: current + 1 },
-						current + 1
+						{ key: current, value: current },
+						current
 					);
 				})
 			);
@@ -9972,6 +9977,7 @@ _reactDom2.default.render(_react2.default.createElement(_Main2.default, null), d
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+exports.updateDrop = updateDrop;
 exports.updateType = updateType;
 exports.getNumberData = getNumberData;
 
@@ -9990,6 +9996,13 @@ var __makeGetReq = function __makeGetReq(oldStore, currentSelectedItem, currentT
 		});
 	});
 };
+
+function updateDrop(oldStore, options) {
+	var currentType = options.currentType ? options.currentType : oldStore.currentType;
+	var currentSelectedItem = options.currentSelectedItem ? options.currentSelectedItem : oldStore.currentSelectedItem;
+
+	return __makeGetReq(oldStore, currentSelectedItem, currentType);
+}
 
 function updateType(oldStore, options) {
 	var currentType = options.currentType;

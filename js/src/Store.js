@@ -1,5 +1,5 @@
 const NUM_OPTIONS = 5;
-const array = Array.from(Array(NUM_OPTIONS).keys());
+const array = Array.from(Array(NUM_OPTIONS).keys()).map(current => current + 1);
 
 const searchTypes = ['trivia', 'math', 'date', 'year'];
 export const Store = {

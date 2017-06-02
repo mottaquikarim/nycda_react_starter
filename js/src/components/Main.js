@@ -35,9 +35,9 @@ export default class Main extends Component {
 		}
 		return <Grid>
 			<div>
-				<MyDrop array={this.state.array} {...sharedProps} />
+				<MyDrop array={this.state.array} keyName="currentSelectedItem" {...sharedProps} />
 				<br />
-				<TypeDrop types={this.state.searchTypes} {...sharedProps} />
+				<MyDrop array={this.state.searchTypes} keyName="currentType" {...sharedProps} />
 			</div>
 			<Label content={labelToShow} {...sharedProps} />
 		</Grid>
