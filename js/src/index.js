@@ -3,11 +3,7 @@ import ReactDOM from 'react-dom';
 
 import Main from './components/Main';
 
-ReactDOM.render(<Main />, document.querySelector('#app'))
-
-
-
-
+ReactDOM.render(<Main />, document.querySelector('#app'));
 
 
 

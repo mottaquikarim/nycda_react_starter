@@ -13,23 +13,28 @@ import {
 export default class Main extends Component {
 	state = Store
 
+	// constructor(props) {
+	// 	super(props)
+	// 	this.state = Store;
+	// }
+
 	dispatch(actionName, options) {
 		const actionToDo = actions[actionName];
-		const newStore = actionToDo(this.state, options);
-		this.setState(newStore);
+		actionToDo(this.state, options).then((newStore) => {
+			this.setState(newStore);
+		});	
 	}
 	
 	render() {
 		const {currentSelectedItem} = this.state;
 		const sharedProps = {
-			dispatch: (...args) => this.dispatch(...args)
+			dispatch: (...args) => this.dispatch(...args),
+			foobar: 1,
+			baz: 2,
 		}
 		return <Grid>
 			<MyDrop array={this.state.array} {...sharedProps} />
 			<Label content={currentSelectedItem} {...sharedProps} />
 		</Grid>
-	}
-	renderDropdown() {
-		
 	}
 }
