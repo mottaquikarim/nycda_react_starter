@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Grid from './Grid';
 import MyDrop from './MyDrop';
+import TypeDrop from './TypeDrop';
 import Label from './Label';
 
 import {
@@ -26,15 +27,19 @@ export default class Main extends Component {
 	}
 	
 	render() {
-		const {currentSelectedItem} = this.state;
+		const {currentSelectedItem, labelToShow} = this.state;
 		const sharedProps = {
 			dispatch: (...args) => this.dispatch(...args),
 			foobar: 1,
 			baz: 2,
 		}
 		return <Grid>
-			<MyDrop array={this.state.array} {...sharedProps} />
-			<Label content={currentSelectedItem} {...sharedProps} />
+			<div>
+				<MyDrop array={this.state.array} {...sharedProps} />
+				<br />
+				<TypeDrop types={this.state.searchTypes} {...sharedProps} />
+			</div>
+			<Label content={labelToShow} {...sharedProps} />
 		</Grid>
 	}
 }

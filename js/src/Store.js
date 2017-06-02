@@ -8,4 +8,6 @@ export const Store = {
 
 	searchTypes,
 	currentType: searchTypes[0],
+
+	labelToShow: 'Change something...'
 };
