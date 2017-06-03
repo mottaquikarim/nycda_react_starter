@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class Main extends Component {
-	render() {
-        return <h1>Hello, Wrold!</h1>
-	}
-}
+import Main from './flux/Main';
 
 ReactDOM.render(<Main />, document.querySelector('#app'))
 
