@@ -1,4 +1,4 @@
-# Flux Boilerplat 
+# Flux Boilerplate
 
 How to clone:
 
