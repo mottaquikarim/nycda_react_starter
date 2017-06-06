@@ -3,7 +3,7 @@
 How to clone:
 
 ```bash
-git clone --branch flux_boilerplate https://github.com/mottaquikarim/nycda_react_starter
+git clone --branch lecture60/routes/alarm https://github.com/mottaquikarim/nycda_react_starter
 ```
 
 HOW TO RUN:
