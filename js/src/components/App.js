@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Router, { Route, Link } from '../router/Router';
+
 import AlarmCreate from './AlarmCreate';
 import AlarmList from './AlarmList'
 
@@ -42,10 +44,27 @@ export default class App extends Component {
         }
     }
     render() {
+        const {currentRoute} = this.props;
+        console.log(currentRoute)
         return (<div>
-            <AlarmCreate {...this.props} />  
-            <AlarmList {...this.props} keyName="active_alarms"/>  
-            <AlarmList {...this.props} keyName="inactive_alarms" classNames={['disabled']}/>  
+            <Link route="/create" {...this.props}>New Alarm</Link>
+            <Link route="/list" {...this.props}>Show Alarms</Link>
+
+            <br />
+            <br />
+
+            <Router currentRoute={currentRoute} dispatch={this.props.dispatch}>
+                <Route url="/create">
+                    <AlarmCreate {...this.props} />  
+                </Route>
+                <Route url="/list">
+                    <AlarmList {...this.props} keyName="active_alarms"/>  
+                    <AlarmList {...this.props} keyName="inactive_alarms" classNames={['disabled']}/>  
+                </Route>
+                <Route url="/list/:when">
+                    <h1>Here</h1>
+                </Route>
+            </Router>
         </div>);
     }
 }
